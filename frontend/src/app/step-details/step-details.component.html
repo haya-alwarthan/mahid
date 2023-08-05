@@ -1,0 +1,41 @@
+<div class="d-flex h-100 justify-content-center ">
+  <div class="row mx-auto d-flex w-100 align-self-center clearfix">
+    <div class="col-1 d-flex align-items-center justify-content-start"
+    (click)="disableNext?null: goToNext()"
+    >
+      <img
+        src="assets/images/next.svg"
+        height="40%"
+        width="40%"
+        class="object-fit-contain "
+        [style.opacity]="disableNext?'0.3':'1'"
+      />
+    </div>
+    <div class="col-10">
+      <h1 class="text-center my-5">تعلم الغرز الأساسية</h1>
+
+      <mat-grid-list cols="6" rowHeight="5:3" gutterSize="1rem">
+        <mat-grid-tile
+          *ngFor="let tile of tiles"
+          [colspan]="tile.cols"
+          [rowspan]="tile.rows"
+          class="tile shadow-sm"
+        >
+          {{ tile.text }}
+        </mat-grid-tile>
+      </mat-grid-list>
+    </div>
+    <div class="col-1 d-flex align-items-center justify-content-end" 
+    
+    (click)="disablePrev?null:goToPrev()">
+        
+      <img
+        src="assets/images/prev.svg"
+        height="40%"
+        width="40%"
+        class="object-fit-contain"
+        [style.opacity]="disablePrev?'0.3':'1'"
+      />
+    </div>
+  </div>
+</div>

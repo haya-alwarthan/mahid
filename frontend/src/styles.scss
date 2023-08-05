@@ -1,0 +1,35 @@
+
+html,
+body {
+  height: 100%;
+  overflow-y: auto
+}
+@import '~@angular/material/theming';
+$custom-typography: mat-typography-config(
+  $font-family: "Noto Sans Arabic",
+  
+);
+
+@include angular-material-typography($custom-typography);
+body {
+  margin: 0;
+  font-family: "Noto Sans Arabic", sans-serif;
+  color: #584949;
+    background-image: linear-gradient(
+      180deg,
+      #f1e1b7 0%,
+      #f0827659 35%,
+      #f0505300 100%
+    );
+  h1 {
+    font-weight: 700;
+  }
+  .orange-text{
+    color: #FF9863;
+    font-weight: 700;
+  }
+  .gray-title{
+    color: #584949;
+    font-weight: 700;
+  }
+}

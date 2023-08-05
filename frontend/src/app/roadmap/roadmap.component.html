@@ -1,0 +1,33 @@
+<div class="container">
+    <div class="row p-5 mx-auto d-flex  ">
+        <h1 class="text-center">{{title}}</h1>
+    </div>
+<div *ngFor="let step of steps; let i=index" class="row step-row mx-auto d-flex w-75 ">
+    <div class="clearfix">
+
+        <div class="col-10 col-lg-4 py-3"[ngClass]="{'float-start': i%2, 'float-end' : i%2===0}" >
+
+            <mat-card class="crd py-4">
+               
+          
+                <mat-card-content>
+                    <h5 class="gray-title">{{step.title}}</h5>
+                    <p class="text-muted">{{step.desc}}</p>
+                    
+                </mat-card-content>
+                <mat-card-footer class=" clearfix p-2"><small>
+                    <a 
+                    [routerLink]="['/step', step.id]"
+                    [state]="step"
+                    class="float-start orange-text">معرفة المزيد</a></small></mat-card-footer>
+            
+              </mat-card>
+        
+        
+        </div>
+    </div>
+
+</div>
+
+
+</div>
