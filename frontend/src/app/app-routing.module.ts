@@ -8,7 +8,8 @@ import { StepDetailsComponent } from './step-details/step-details.component';
 const routes: Routes = [
   { path: '', component: LandingComponent },
   { path: 'roadmap', component: RoadmapComponent },
-  { path: 'step/:id', component: StepDetailsComponent },
+  { path: 'step', component: StepDetailsComponent },
+  { path: '**', redirectTo:''},
   
 
 ];

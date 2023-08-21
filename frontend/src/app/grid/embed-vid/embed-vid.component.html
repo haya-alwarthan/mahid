@@ -1,0 +1,26 @@
+<div *ngIf="videos" class="row d-flex align-items-center">
+  <div
+    class="col-1"
+    (click)="currentIndex = (currentIndex + 1) % videos.length"
+  >
+   <img [src]="imgs_url+'next-vid.png'" class="img-fluid">
+  </div>
+  <div class="col-10 h-100">
+    <div class="ratio ratio-16x9">
+      <iframe
+      id="vid-frame"
+  
+      [src]="videos[currentIndex] | safe"
+    >
+    </iframe>
+    </div>
+   
+  </div>
+
+  <div
+  class="col-1"
+  (click)="currentIndex = (currentIndex - 1) % videos.length"
+>
+<img [src]="imgs_url +'prev-vid.png'" class="img-fluid">
+</div>
+</div>

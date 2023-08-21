@@ -1,35 +1,74 @@
 import { Injectable } from '@angular/core';
 import { Step } from '../models/step.model';
-import { BehaviorSubject, Subject } from 'rxjs';
+import {
+  BehaviorSubject,
+  Subject,
+  catchError,
+  shareReplay,
+  throwError,
+} from 'rxjs';
+import { environment } from 'src/environments/environment';
+import { HttpClient } from '@angular/common/http';
+import Swal from 'sweetalert2';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class RoadmapStepsService {
-  steps=[
-    new Step(1, 1, "تعلم الغرز الأساسية","ابدأ بالغرز الأساسية للكروشيه مثل الحلقة والغرزة الواحدة والمزدوجة."),
-    new Step(2, 2, "تعلم الغرز الأساسية","ابدأ بالغرز الأساسية للكروشيه مثل الحلقة والغرزة الواحدة والمزدوجة."),
-    new Step(3, 3, "تعلم الغرز الأساسية","ابدأ بالغرز الأساسية للكروشيه مثل الحلقة والغرزة الواحدة والمزدوجة."),
-    new Step(4, 4, "تعلم الغرز الأساسية","ابدأ بالغرز الأساسية للكروشيه مثل الحلقة والغرزة الواحدة والمزدوجة."),
-    new Step(5, 5, "تعلم الغرز الأساسية","ابدأ بالغرز الأساسية للكروشيه مثل الحلقة والغرزة الواحدة والمزدوجة."),
-    new Step(6, 6, "تعلم الغرز الأساسية","ابدأ بالغرز الأساسية للكروشيه مثل الحلقة والغرزة الواحدة والمزدوجة."),
-  ]
+  GET_TITLE_API = `${environment.SERVER_URL}get_title/`;
+  GET_ROADMAP_API = `${environment.SERVER_URL}get_roadmap/`;
+  GET_DETAILS_API = `${environment.SERVER_URL}get_details/`;
 
-  searchedTerm= new BehaviorSubject<string>('')
- 
-  constructor() { }
+  searchedTerm = new BehaviorSubject<string>('');
 
+  constructor(private http: HttpClient) {}
 
-  getRoadMapSteps(){
-    return this.steps
+  getTitle(desc: string) {
+    const queryParams = { desc: desc };
+    return this.http.get(this.GET_TITLE_API, { params: queryParams }).pipe(
+      shareReplay(1),
+      catchError((e: any) => {
+        console.log("error in service : "+JSON.stringify(e))
+        return throwError(() => {
+          if(e.message != 'Invalid Input'){
+      
+              Swal.fire({
+                icon: 'error',
+                title: 'ثم خطب ما!',
+                text: 'يرجى معاودة المحاولة مرة أخرى في وقت لاحق',
+                confirmButtonColor: '#FF9863',
+      
+              }).then(()=>{
+                window.location.href = environment.SERVER_URL;
+              })
+            }
+          
+         
+return e
+        });
+      })
+    );
   }
 
-  getSearchedTerm(){
-    return this.searchedTerm.asObservable()
+  getRoadmap(title: string) {
+    const queryParams = { title: title };
+    return this.http
+      .get(this.GET_ROADMAP_API, { params: queryParams })
+      .pipe(shareReplay(1));
   }
 
-  setSearchedTerm(term:string){
-    console.log(term)
-    this.searchedTerm.next(term)
+  getStepDetails(id: string, order: number) {
+    const queryParams = { id: id, order: order };
+    return this.http
+      .get(this.GET_DETAILS_API, { params: queryParams })
+      .pipe(shareReplay(1));
+  }
+
+  getSearchedTerm() {
+    return this.searchedTerm.asObservable();
+  }
+
+  setSearchedTerm(term: string) {
+    this.searchedTerm.next(term);
   }
 }

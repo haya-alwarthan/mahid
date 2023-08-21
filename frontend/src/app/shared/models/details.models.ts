@@ -2,22 +2,27 @@ import { Step } from './step.model';
 
 export class StepDetails {
   id: number;
-  step: Step;
-  content: string;
+  content: string='';
   resources: string[];
-  vids: string[];
+  videos: string[];
+  // people: string[];
+  keywords: string[];
 
   constructor(
     id: number,
     content: string,
-    step: Step,
     resources: string[],
-    vids: string[]
+    videos: string[],
+    // people: string[],
+    keywords: string[]
   ) {
     this.id = id;
     this.content = content;
-    this.step = step;
     this.resources = resources;
-    this.vids = vids;
+    this.videos = videos;
+    // this.people = people;
+    this.keywords = keywords;
   }
+
+
 }

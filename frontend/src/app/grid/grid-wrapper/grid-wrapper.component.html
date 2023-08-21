@@ -1,0 +1,24 @@
+<div *ngIf="step;" >
+<ng-container [ngSwitch]="type">
+  <content
+    *ngSwitchCase="GridElementType.Content"
+    [content]="step.content"
+  ></content>
+
+  <embed-vid
+    *ngSwitchCase="GridElementType.Videos"
+    [videos]="step.videos"
+  ></embed-vid>
+
+  <resources
+    *ngSwitchCase="GridElementType.Resources"
+    [resources]="step.resources"
+    [keywords]="step.keywords"
+  ></resources>
+
+  <!-- <people
+    *ngSwitchCase="GridElementType.People"
+    [people]="step.people"
+  ></people> -->
+</ng-container>
+</div>

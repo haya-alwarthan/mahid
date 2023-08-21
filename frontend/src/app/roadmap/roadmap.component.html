@@ -1,3 +1,4 @@
+<loading-mask *ngIf="loading"></loading-mask>
 <div class="container">
     <div class="row p-5 mx-auto d-flex  ">
         <h1 class="text-center">{{title}}</h1>
@@ -17,8 +18,7 @@
                 </mat-card-content>
                 <mat-card-footer class=" clearfix p-2"><small>
                     <a 
-                    [routerLink]="['/step', step.id]"
-                    [state]="step"
+                    [routerLink]="['/step']"  [queryParams]="{id: id, order:i+1,l:steps.length}"
                     class="float-start orange-text">معرفة المزيد</a></small></mat-card-footer>
             
               </mat-card>

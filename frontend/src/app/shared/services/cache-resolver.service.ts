@@ -9,7 +9,7 @@ export class CacheResolverService {
   private cache = new Map<string, [Date | null, HttpResponse<any>]>();
   constructor() {}
   set(key: any, value: any, timeToLive: number | null = null) {
-    console.log('Set Chache Key: ', key);
+     
 
     //if timetolive is present
     if (timeToLive) {
@@ -30,5 +30,9 @@ export class CacheResolverService {
       return null;
     }
     return res;
+  }
+
+  list(){
+    return this.cache
   }
 }

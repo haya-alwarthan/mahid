@@ -20,7 +20,8 @@ export class CacheInterceptor implements HttpInterceptor  {
             return next.handle(req)
         }
 
-        const cachedResponse = this.cacheResolver.get(req.url)
+        const cachedResponse = this.cacheResolver.get(req.urlWithParams)
+         
         return cachedResponse ? of(cachedResponse) : this.sendRequest(req,next)
     
 
@@ -29,7 +30,8 @@ export class CacheInterceptor implements HttpInterceptor  {
         return next.handle(req).pipe(
             tap((e)=>{
                 if(e instanceof HttpResponse){
-                    this.cacheResolver.set(req.url, e, TIME_TO_LIVE)
+                     
+                    this.cacheResolver.set(req.urlWithParams, e, TIME_TO_LIVE)
                 }
             })
         )

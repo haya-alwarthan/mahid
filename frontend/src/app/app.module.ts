@@ -7,29 +7,42 @@ import { RoadmapComponent } from './roadmap/roadmap.component';
 import { StepDetailsComponent } from './step-details/step-details.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CacheResolverService } from './shared/services/cache-resolver.service';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { CacheInterceptor } from './shared/interceptors/cache-interceptor';
+import { ErrorInterceptor } from './shared/interceptors/error-interceptor';
+import { FormsModule } from '@angular/forms';
+import { LoadingMaskComponent } from './loading-mask/loading-mask.component';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 @NgModule({
-  declarations: [
-    AppComponent,
-    LandingComponent,
-
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    RoadmapComponent,
-    StepDetailsComponent,
-  ],
-  providers: [
-    CacheResolverService,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: CacheInterceptor,
-      multi:true
-    }
-  ],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        LandingComponent,
+    ],
+    providers: [
+        CacheResolverService,
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: CacheInterceptor,
+            multi: true
+        },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: ErrorInterceptor,
+            multi: true
+        }
+    ],
+    bootstrap: [AppComponent],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        RoadmapComponent,
+        StepDetailsComponent,
+        HttpClientModule,
+        FormsModule,
+        LoadingMaskComponent,
+        SweetAlert2Module
+        
+    ]
 })
 export class AppModule { }
